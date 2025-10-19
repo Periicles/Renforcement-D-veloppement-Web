@@ -9,7 +9,6 @@ env:
   DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
   DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
   IMAGE_NAME: periicles/gestion-produits-php
-  KUBECONFIG: ${{ secrets.KUBECONFIG }}
 
 jobs:
 
@@ -52,9 +51,11 @@ jobs:
     - name: Setup Kubeconfig
       run: |
         mkdir -p $HOME/.kube
-        echo "${{ env.KUBECONFIG }}" | base64 --decode > $HOME/.kube/config
+        echo "${{ secrets.KUBECONFIG }}" | base64 --decode > $HOME/.kube/config
 
     - name: Deploy to Kubernetes
+      env:
+        KUBECONFIG: $HOME/.kube/config
       run: |
         kubectl apply -f persistent-volumes.yml
         kubectl apply -f deployment.yml
