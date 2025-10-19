@@ -21,4 +21,4 @@ L'application permet de :
 - Pour chaque produit, il est possible d'ajouter autant de photos que nécessaire
 
 
-This is a aschool project.
+This is a school project.
