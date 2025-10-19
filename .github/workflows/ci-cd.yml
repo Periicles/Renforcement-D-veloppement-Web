@@ -30,8 +30,8 @@ jobs:
     - name: Build and push image
       uses: docker/build-push-action@v4
       with:
-        context: Renforcement-D-veloppement-Web/php
-        file: Renforcement-D-veloppement-Web/php/Dockerfile
+        context: php
+        file: php/Dockerfile
         push: true
         tags: ${{ env.IMAGE_NAME }}:latest
         cache-from: type=registry,ref=${{ env.IMAGE_NAME }}:latest
