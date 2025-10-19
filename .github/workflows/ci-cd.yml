@@ -47,8 +47,8 @@ jobs:
       with:
         push: true
         tags: ${{ env.IMAGE_NAME }}:latest
-        context: php
-        file: php/Dockerfile
+        context: Renforcement-D-veloppement-Web/php
+        file: Renforcement-D-veloppement-Web/php/Dockerfile
 
   deploy:
     needs: push
