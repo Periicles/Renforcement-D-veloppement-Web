@@ -1,0 +1,31 @@
+# Ignore uploads and user data
+/php/www/uploads/
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Node/Python/Other common
+node_modules/
+venv/
+__pycache__/
+
+# Logs
+*.log
+
+# IDE/editor
+.vscode/
+.idea/
+*.swp
+
+# Docker
+**/docker-compose.override.yml
+**/.env
+
+# Kubernetes manifests or kubeconfig (do NOT commit credentials)
+.kube/
+*.kubeconfig
+*.secret
+
+# Uploaded images/files
+php/www/img/

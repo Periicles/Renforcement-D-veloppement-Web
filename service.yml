@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: php-app-service
+spec:
+  selector:
+    app: gestion-produits-php
+  type: NodePort
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+    nodePort: 30080
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gestion-produits-db-service
+spec:
+  selector:
+    app: gestion-produits-db
+  ports:
+  - protocol: TCP
+    port: 3306
+    targetPort: 3306
+  clusterIP: None

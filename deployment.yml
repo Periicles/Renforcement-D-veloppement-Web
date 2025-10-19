@@ -1,0 +1,82 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: php-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gestion-produits-php
+  template:
+    metadata:
+      labels:
+        app: gestion-produits-php
+    spec:
+      containers:
+      - name: php-app
+        image: periicles/gestion-produits-php:latest
+        ports:
+        - containerPort: 80
+        env:
+        - name: MYSQL_HOST
+          value: gestion-produits-db
+        - name: MYSQL_DATABASE
+          value: gestion_produits
+        - name: MYSQL_USER
+          value: root
+        - name: MYSQL_PASSWORD
+          value: root
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
+        volumeMounts:
+        - name: uploads-storage
+          mountPath: /var/www/html/uploads
+      volumes:
+      - name: uploads-storage
+        persistentVolumeClaim:
+          claimName: uploads-pvc
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gestion-produits-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gestion-produits-db
+  template:
+    metadata:
+      labels:
+        app: gestion-produits-db
+    spec:
+      containers:
+      - name: mysql
+        image: mysql:8.0
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: root
+        - name: MYSQL_DATABASE
+          value: gestion_produits
+        ports:
+        - containerPort: 3306
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "1000m"
+        volumeMounts:
+        - name: mysql-persistent-storage
+          mountPath: /var/lib/mysql
+      volumes:
+      - name: mysql-persistent-storage
+        persistentVolumeClaim:
+          claimName: mysql-pvc
