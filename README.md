@@ -19,3 +19,6 @@ L'application permet de :
 - Modifier les produits
 - Supprimer les produits
 - Pour chaque produit, il est possible d'ajouter autant de photos que nécessaire
+
+
+This is a aschool project.
